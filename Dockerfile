@@ -1,4 +1,4 @@
-FROM alpine:3.11.5
+FROM alpine:3.14.4
 
 RUN apk add --update \
         pmacct \
