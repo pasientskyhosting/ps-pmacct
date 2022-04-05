@@ -1,0 +1,50 @@
+---
+
+policy:
+  approval:
+    - The DevOps team has approved
+  disapproval:
+    options:
+      # "methods" defines how users set and revoke disapproval.
+      methods:
+        # "disapprove" sets the methods for disapproval.
+        disapprove:
+          comments:
+            - "/disapprove"
+            - "/hold"
+            - "/stop"
+            - "/nononono"
+          # User can diapprove through a review as well
+          github_review: true
+
+        # "revoke" sets the methods for revoking disapproval. Usually, these will
+        # match the methods used by approval rules.
+        revoke:
+          comments:
+            - "/gogogo"
+            - "/lgtm"
+            - "/approve"
+          # User can revoke through a review as well
+          github_review: true
+
+    # "requires" sets the users that are allowed to disapprove. If it is not set,
+    # disapproval is not enabled.
+    requires:
+      organizations: ["pasientskyhosting"]
+
+approval_rules:
+  - name: The DevOps team has approved
+    options:
+      # "methods" defines how users may express approval. The defaults are below.
+      methods:
+        comments:
+          - "/gogogo"
+          - "/lgtm"
+          - "/approve"
+        # User can approve through a review as well
+        github_review: true
+      request_review:
+        enabled: false
+    requires:
+      count: 1
+      teams: ["pasientskyhosting/devops"]
